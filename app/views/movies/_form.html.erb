@@ -1,0 +1,14 @@
+<%= form_with(model: movie) do |f| %>
+  <%= f.label(:title) %>
+  <%= f.text_field(:title, autofocus: true) %>
+  <%= f.label(:rating) %>
+  <%= f.text_field(:rating) %>
+  <%= f.label(:total_gross) %>
+  <% new_movie = movie.id.nil? %>
+  <%= f.number_field(:total_gross, disabled: (false unless new_movie)) %>
+  <%= f.label(:description) %>
+  <%= f.text_area(:description, rows: 10) %>
+  <%= f.label(:released_on) %>
+  <%= f.date_field(:released_on, ampm: false, class: 'date') %>
+  <%= f.submit %>
+<% end %>

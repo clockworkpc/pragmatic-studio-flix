@@ -1,0 +1,12 @@
+<h2><%= @movie.title %></h2>
+
+<p class="detail"><%= total_gross(@movie) %></p>
+<p class="detail"><%= @movie.description %></p>
+<p class="detail">Released on: <%= @movie.released_on %></p>
+
+
+<section class="admin">
+  <%= link_to('Edit', edit_movie_path(@movie), class: 'button') %>
+  <%= link_to('Delete', @movie, class: 'button',
+              data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }) %>
+</section>

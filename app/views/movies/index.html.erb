@@ -1,0 +1,19 @@
+<% @movies.each do |movie| %>
+  <section class="movie">
+    <div class="summary">
+      <h2>
+        <%= link_to(movie.title, movie_path(movie)) %>
+      </h2>
+      <h3>
+        <%= total_gross(movie) %>
+      </h3>
+      <p>
+        <%= truncate(movie.description, length: 150, separator: ' ') %>
+      </p>
+    </div>
+  </section>
+<% end %>
+
+<section class="admin">
+<%= link_to("New Movie", new_movie_path) %>
+</section>
