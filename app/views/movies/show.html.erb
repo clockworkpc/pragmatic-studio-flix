@@ -1,8 +1,15 @@
 <h2><%= @movie.title %></h2>
 
-<p class="detail"><%= total_gross(@movie) %></p>
+<div>
+
+</div>
+<p class="detail">  <%= @movie.director %> &bull; <%= @movie.duration %>
+&bull; <%= total_gross(@movie) %></p>
 <p class="detail"><%= @movie.description %></p>
 <p class="detail">Released on: <%= @movie.released_on %></p>
+<div class="image">
+  <%= image_tag(@movie.image_file_name) %>
+</div>
 
 
 <section class="admin">

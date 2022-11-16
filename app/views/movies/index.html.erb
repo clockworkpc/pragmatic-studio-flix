@@ -8,12 +8,16 @@
         <%= total_gross(movie) %>
       </h3>
       <p>
-        <%= truncate(movie.description, length: 150, separator: ' ') %>
+      <%= truncate(movie.description, length: 150, separator: ' ') %>
       </p>
     </div>
+    <div class="image">
+      <%= image_tag(movie.image_file_name) %>
+    </div>
   </section>
+
 <% end %>
 
 <section class="admin">
-<%= link_to("New Movie", new_movie_path) %>
+  <%= link_to("New Movie", new_movie_path) %>
 </section>
