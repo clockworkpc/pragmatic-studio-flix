@@ -1,4 +1,5 @@
 <%= form_with(model: movie) do |f| %>
+  <%= render "shared/errors", objekt: movie %>
   <%= f.label(:title) %>
   <%= f.text_field(:title, autofocus: true) %>
   <%= f.label(:rating) %>
