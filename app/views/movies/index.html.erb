@@ -14,6 +14,17 @@
     <div class="image">
       <%= image_tag(movie.image_file_name) %>
     </div>
+
+    <div class="reviews">
+      <p>
+      <span class="stars">
+        <%= render 'shared/stars', percent: movie.average_stars_as_percent %>
+      </span>
+      </p>
+      <%= link_to pluralize(movie.reviews.count, "review"), movie_reviews_path(movie) %>
+    </div>
+
+
   </section>
 
 <% end %>

@@ -11,9 +11,21 @@
   <%= image_tag(@movie.image_file_name) %>
 </div>
 
+<div class="reviews">
+      <p>
+      <span class="stars">
+        <%= render 'shared/stars', percent: @movie.average_stars_as_percent %>
+      </span>
+      </p>
+  <%= link_to pluralize(@movie.reviews.count, "review"), movie_reviews_path(@movie) %>
+</div>
 
 <section class="admin">
   <%= link_to('Edit', edit_movie_path(@movie), class: 'button') %>
   <%= link_to('Delete', @movie, class: 'button',
               data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }) %>
+  <%= link_to("#{@movie.reviews.count} Reviews", movie_reviews_path(@movie), class: 'button') %>
+  <%= link_to('Write a Review', new_movie_review_path(@movie), class: 'button') %>
+
+  <%= render "reviews/form", { movie: @movie, review: @movie.reviews.new } %>
 </section>

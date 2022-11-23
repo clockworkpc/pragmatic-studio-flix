@@ -1,5 +1,7 @@
 class Movie < ApplicationRecord
-  RATINGS = %w[G PG PG-13 R NC-17]
+  has_many :reviews, dependent: :destroy
+
+  RATINGS = %w[G PG PG-13 R NC-17].freeze
   validates :title, :released_on, :duration, presence: true
   validates :description, length: { minimum: 25 }
   validates :total_gross, numericality: { greater_than_or_equal_to: 0 }
@@ -14,6 +16,19 @@ class Movie < ApplicationRecord
   end
 
   def flop?
+    cult_classic = reviews.count > 50 && reviews.average(:stars) > 4
+    return false if cult_classic
+
     total_gross.blank? || total_gross < 225_000_000
+  end
+
+  def average_stars
+    return 0.0 if reviews.count.zero?
+
+    reviews.average(:stars)
+  end
+
+  def average_stars_as_percent
+    (average_stars / 5.0) * 100
   end
 end

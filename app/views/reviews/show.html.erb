@@ -1,0 +1,13 @@
+<h2>Review</h2>
+
+</div>
+<p class="detail"><%= @review.name %> &bull; <%= @review.stars %></p>
+<p class="detail"><%= @review.comment   %></p>
+</div>
+
+<section class="admin">
+  <%= link_to('Edit Review', edit_movie_review_path(@movie, @review), class: 'button') %>
+  <%= link_to('Delete Review', [@movie, @review],
+              class: 'button',
+              data: { turbo_method: :delete} ) %>
+</section>
