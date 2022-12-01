@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_23_034302) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_01_130639) do
   create_table "movies", force: :cascade do |t|
     t.string "title"
     t.string "rating"
@@ -40,7 +40,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_23_034302) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "username"
     t.index ["email"], name: "unique_emails", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "reviews", "movies"
