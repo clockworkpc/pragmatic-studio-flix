@@ -1,8 +1,8 @@
 class Review < ApplicationRecord
   STARS = (1..5).to_a.freeze
   belongs_to :movie
+  belongs_to :user
 
-  validates :name, presence: true
   validates :comment, length: { minimum: 4 }
   validates :stars, numericality: {
     only_integer: true,
