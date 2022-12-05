@@ -32,3 +32,19 @@ Movie.all.each do |movie|
   end
 end
 # rubocop:enable Rails/Output
+
+password = 'testicles123'
+test_user = User.create!(username: 'testuser', name: 'Test User', email: 'test@test.com', password:)
+puts "Created #{test_user.username} for #{test_user.name}, #{test_user.email}, password: #{password}".green
+
+admin_user = User.create!(username: 'adminuser', name: 'admin User', email: 'admin@admin.com', password:, admin: true)
+puts "Created #{admin_user.username} for #{admin_user.name}, #{admin_user.email}, password: #{password}".green
+
+5.times do
+  User.create(
+    name: Faker::Name.name,
+    username: Faker::Internet.username,
+    email: Faker::Internet.email,
+    password: Faker::Internet.password
+  )
+end

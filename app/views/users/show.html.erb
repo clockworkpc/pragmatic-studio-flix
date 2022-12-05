@@ -5,7 +5,12 @@
   <h3>Member Since</h3>
   <p>Joined in <%= @user.created_at.strftime("%B %Y") %></p>
   <div class="actions">
-    <%= link_to "Edit Account", edit_user_path(@user), class: "button edit"  %>
-    <%= link_to "Delete Account", @user, class: "button delete",  data: { turbo_method: :delete, turbo_confirm: "Permanently delete your account?" }%>
+    <% if current_user?(@user) || current_user_admin?  %>
+      <%= link_to "Edit Account", edit_user_path(@user), class: "button edit"  %>
+    <% end %>
+    <% if current_user_admin? %>
+      <%= link_to "Delete Account", @user, class: "button delete",
+        data: { turbo_method: :delete, turbo_confirm: "Permanently delete your account?" }%>
+    <% end %>
   </div>
 </section>

@@ -1,16 +1,17 @@
-  <header>
-    <nav>
-      <%= image_tag("logo.png") %>
-      <ul class="left">
-        <li>
-          <%= link_to "All Movies", movies_path %>
-        </li>
-      </ul>
-      <ul class="right">
-        <li>
-          <%= link_to "Sign In", signin_path, class: "button"  %>
-          <%= link_to "Sign Up", signup_path, class: "button" %>
-        </li>
-      </ul>
-    </nav>
-  </header>
+<header>
+  <nav>
+    <ul class="left">
+    <%= link_to image_tag('logo.png'), movies_path %>
+    </ul>
+    <ul class="right">
+      <% if current_user %>
+        <li><%= link_to current_user.name, current_user %></li>
+        <li><%= link_to "Account Settings", edit_user_path(current_user) %></li>
+        <li><%= link_to "Sign Out", signout_path, class: "button" %></li>
+      <% else %>
+        <li><%= link_to "Sign In", signin_path, class: "button"  %></li>
+        <li><%= link_to "Sign Up", signup_path, class: "button" %></li>
+      <% end %>
+    </ul>
+  </nav>
+</header>

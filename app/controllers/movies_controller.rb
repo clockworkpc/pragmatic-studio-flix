@@ -1,10 +1,21 @@
 class MoviesController < ApplicationController
+  before_action :require_signin, except: %i[index show]
+  before_action :require_admin, except: %i[index show]
+
   def index
     @movies = Movie.released
   end
 
+  def show
+    @movie = Movie.find(params[:id])
+  end
+
   def new
     @movie = Movie.new
+  end
+
+  def edit
+    @movie = Movie.find(params[:id])
   end
 
   def create
@@ -15,14 +26,6 @@ class MoviesController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def show
-    @movie = Movie.find(params[:id])
-  end
-
-  def edit
-    @movie = Movie.find(params[:id])
   end
 
   def update
@@ -59,7 +62,8 @@ class MoviesController < ApplicationController
     {
       create: 'Movie successfully created!',
       update: 'Movie successfully updated!',
-      delete: 'Movie successfully deleted!'
+      delete: 'Movie successfully deleted!',
+      unauthorized: 'Access to this page not authorized!'
     }
   end
 end
