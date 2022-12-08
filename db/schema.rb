@@ -10,7 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_05_040809) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_08_015329) do
+  create_table "characterisations", force: :cascade do |t|
+    t.integer "movie_id", null: false
+    t.integer "genre_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["genre_id"], name: "index_characterisations_on_genre_id"
+    t.index ["movie_id"], name: "index_characterisations_on_movie_id"
+  end
+
+  create_table "favourites", force: :cascade do |t|
+    t.integer "movie_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_favourites_on_movie_id"
+    t.index ["user_id"], name: "index_favourites_on_user_id"
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_genres_on_name", unique: true
+  end
+
   create_table "movies", force: :cascade do |t|
     t.string "title"
     t.string "rating"
@@ -46,5 +71,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_05_040809) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "characterisations", "genres"
+  add_foreign_key "characterisations", "movies"
+  add_foreign_key "favourites", "movies"
+  add_foreign_key "favourites", "users"
   add_foreign_key "reviews", "movies"
 end

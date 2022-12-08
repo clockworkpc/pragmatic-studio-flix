@@ -13,4 +13,32 @@
         data: { turbo_method: :delete, turbo_confirm: "Permanently delete your account?" }%>
     <% end %>
   </div>
+
+  <% if @reviews.present? %>
+    <h3>Reviews</h3>
+    <% @reviews.each do |review| %>
+      <div class="review">
+        <div class="details">
+          <span class="title">
+            <%= profile_image(review.user, 35) %>
+            <%= link_to review.movie.title, review.movie %>
+          </span>
+          <%= pluralize(review.stars, 'star') %>
+          <span class="date">
+            <%= time_ago_in_words(review.created_at) %>
+          </span>
+          <p><%= review.comment %></p>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% if @favourite_movies.present? %>
+    <h3>Favourite Movies</h3>
+    <div class="favourite-movies">
+      <% @favourite_movies.each do |movie| %>
+        <%= link_to image_tag(movie.image_file_name), movie %>
+      <% end %>
+    </div>
+  <% end %>
 </section>

@@ -1,0 +1,8 @@
+Action
+Adventure
+Comedy
+Comic Book-superhero
+Drama
+Martial arts
+Propaganda
+Science fiction

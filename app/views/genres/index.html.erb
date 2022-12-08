@@ -1,0 +1,22 @@
+<h1>Genres</h1>
+<% if @genres.present? %>
+  <table>
+    <tbody>
+      <% @genres.each do |genre| %>
+        <tr>
+          <td><%= link_to genre.name, genre %></td>
+          <% movies = genre.movies %>
+          <td>
+            <% movies.each do |movie| %>
+              <% if movie == movies.last %>
+                <%= link_to movie.title, movie %>
+              <% else %>
+                <%= link_to movie.title, movie %>,
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
