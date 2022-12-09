@@ -10,6 +10,8 @@ class Review < ApplicationRecord
     less_than_or_equal_to: STARS.max
   }
 
+  scope :past_n_days, ->(n) { Review.where(created_at: n.days.ago..Time.zone.now) }
+
   def stars_as_percent
     (stars / STARS.max.to_f) * 100.0
   end

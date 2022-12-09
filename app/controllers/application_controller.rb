@@ -27,7 +27,17 @@ class ApplicationController < ActionController::Base
     current_user == user
   end
 
+  def approved_movie_scopes
+    %i[released upcoming recent hits flops]
+  end
+
+  def approved_movie_scope?(sym)
+    approved_movie_scopes.include?(sym)
+  end
+
   helper_method :current_user
   helper_method :current_user?
   helper_method :current_user_admin?
+  helper_method :approved_movie_scopes
+  helper_method :approved_movie_scope?
 end

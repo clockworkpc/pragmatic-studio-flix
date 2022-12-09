@@ -3,7 +3,8 @@ class MoviesController < ApplicationController
   before_action :require_admin, except: %i[index show]
 
   def index
-    @movies = Movie.released
+    @filter = set_movie_scope
+    @movies = Movie.send(@filter)
   end
 
   def show
@@ -68,5 +69,14 @@ class MoviesController < ApplicationController
       delete: 'Movie successfully deleted!',
       unauthorized: 'Access to this page not authorized!'
     }
+  end
+
+  def set_movie_scope
+    return :released if params[:filter].nil?
+
+    filter = params[:filter].to_sym
+    return :released unless approved_movie_scope?(filter)
+
+    filter
   end
 end

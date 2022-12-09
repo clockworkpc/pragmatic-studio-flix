@@ -1,7 +1,10 @@
 <header>
   <nav>
     <ul class="left">
-    <%= link_to image_tag('logo.png'), movies_path %>
+      <%= link_to image_tag('logo.png'), movies_path %>
+      <% approved_movie_scopes.each do |movie_scope| %>
+        <li><%= nav_link_to(movie_scope.to_s.titleize, filtered_events_path(movie_scope)) %></li>
+      <% end %>
     </ul>
     <ul class="right">
       <% if current_user %>

@@ -18,4 +18,9 @@ module MoviesHelper
       pluralize(number_with_precision(movie.average_stars, precision: 1), 'star')
     end
   end
+
+  def nav_link_to(str, path)
+    link_class = current_page?(path) ? 'active' : nil
+    link_to str, path, class: link_class
+  end
 end
