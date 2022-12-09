@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  before_save :downcase_username
+  before_save :downcase_email
+
   has_secure_password
   has_many :reviews, dependent: :destroy
   has_many :favourites, dependent: :destroy
@@ -18,5 +21,19 @@ class User < ApplicationRecord
 
   def gravatar_id
     Digest::MD5.hexdigest(email.downcase)
+  end
+
+  def to_param
+    username
+  end
+
+  private
+
+  def downcase_username
+    self.username = username.downcase
+  end
+
+  def downcase_email
+    self.email = email.downcase
   end
 end

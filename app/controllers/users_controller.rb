@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :require_signin, except: %i[new create]
   before_action :require_correct_user, only: %i[edit update]
+  before_action :set_user, only: %i[show destroy]
   before_action :require_admin, only: %i[destroy]
 
   def index
@@ -8,7 +9,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
     @reviews = @user.reviews
     @favourite_movies = @user.favourite_movies
   end
@@ -41,7 +41,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
     if @user.destroy
       session[:user_id] = nil
       alert = "Account for #{@user.name} has been deleted."
@@ -59,7 +58,12 @@ class UsersController < ApplicationController
   end
 
   def require_correct_user
-    @user = User.find(params[:id])
-    redirect_to(root_url, status: :see_other) unless current_user == @user
+    set_user
+    correct_user = current_user == @user || current_user.admin?
+    redirect_to(root_url, status: :see_other) unless correct_user
+  end
+
+  def set_user
+    @user = User.find_by!(username: params[:id])
   end
 end

@@ -13,10 +13,4 @@ class FavouritesController < ApplicationController
 
     redirect_to @movie
   end
-
-  private
-
-  def set_movie
-    @movie = Movie.find(params[:movie_id])
-  end
 end

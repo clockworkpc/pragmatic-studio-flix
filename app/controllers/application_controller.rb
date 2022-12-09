@@ -35,6 +35,11 @@ class ApplicationController < ActionController::Base
     approved_movie_scopes.include?(sym)
   end
 
+  def set_movie
+    key = params[:movie_id] || params[:id]
+    @movie = Movie.find_by!(slug: key)
+  end
+
   helper_method :current_user
   helper_method :current_user?
   helper_method :current_user_admin?
