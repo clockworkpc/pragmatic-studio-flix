@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '>= 3.0.0'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', require: false
 gem 'bootstrap', '~> 5.1', '>= 5.1.3'
 gem 'colorize'
@@ -37,7 +38,6 @@ end
 # gem "image_processing", "~> 1.2"
 
 group :development, :test do
-  gem 'bcrypt', '~> 3.1.7'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'clipboard'
   gem 'database_cleaner'
