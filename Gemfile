@@ -8,6 +8,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', require: false
 gem 'bootstrap', '~> 5.1', '>= 5.1.3'
 gem 'colorize'
+gem 'factory_bot_rails'
+gem 'faker'
 gem 'google-apis-drive_v3'
 gem 'google-apis-sheets_v4'
 gem 'httparty'
@@ -43,8 +45,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'database_cleaner-active_record'
   gem 'debug', platforms: %i[mri mingw x64_mingw]
-  gem 'factory_bot_rails'
-  gem 'faker'
   gem 'guard'
   gem 'guard-livereload'
   gem 'guard-rails', require: false
