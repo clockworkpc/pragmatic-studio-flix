@@ -23,4 +23,12 @@ module MoviesHelper
     link_class = current_page?(path) ? 'active' : nil
     link_to str, path, class: link_class
   end
+
+  def main_image(movie)
+    if movie.main_image.attached?
+      image_tag(movie.main_image)
+    else
+      image_tag('placeholder.png')
+    end
+  end
 end

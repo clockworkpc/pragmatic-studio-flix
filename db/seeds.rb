@@ -1,3 +1,4 @@
+# rubocop:disable Rails/Output
 include FactoryBot::Syntax::Methods # rubocop:disable Style/MixinUsage
 File.readlines('app/assets/config/film_genres.txt').each do |line|
   name = line.strip
@@ -15,7 +16,8 @@ JSON.parse(File.read('db/seeds.json')).each do |hsh|
   total_gross = hsh['total_gross']
   director = hsh['director']
   duration = hsh['duration']
-  image_file_name = hsh['image_file_name']
+
+  puts "TITLE: #{title}"
 
   Movie.create(
     title:,
@@ -24,9 +26,28 @@ JSON.parse(File.read('db/seeds.json')).each do |hsh|
     rating:,
     total_gross:,
     director:,
-    duration:,
-    image_file_name:
+    duration:
   )
+end
+
+[
+  ['Avengers Endgame', 'avengers-end-game.png'],
+  ['Captain Marvel', 'captain-marvel.png'],
+  ['Black Panther', 'black-panther.png'],
+  ['Avengers: Infinity War', 'avengers-infinity-war.png'],
+  ['Green Lantern', 'green-lantern.png'],
+  ['Fantastic Four', 'fantastic-four.png'],
+  ['Iron Man', 'ironman.png'],
+  ['Superman', 'superman.png'],
+  ['Spider-Man', 'spiderman.png'],
+  ['Batman', 'batman.png'],
+  ['Catwoman', 'catwoman.png'],
+  ['Wonder Woman', 'wonder-woman.png']
+].each do |movie_title, file_name|
+  puts "MOVIE TITLE: #{movie_title}"
+  movie = Movie.find_by!(title: movie_title)
+  file = Rails.root.join("app/assets/images/#{file_name}").open
+  movie.main_image.attach(io: file, filename: file_name)
 end
 
 password = 'testicles123'
@@ -45,18 +66,19 @@ puts "Created #{admin_user.username} for #{admin_user.name}, #{admin_user.email}
   )
 end
 
-# rubocop:disable Rails/Output
+ad_hoc = -> { [true, false].sample }
+
 Movie.all.each do |movie|
   movie.genre_ids = genre_ids.sample(3)
   User.all.each do |user|
     if movie.title.eql?('Wonder Woman')
       puts "Not creating reviews for #{movie.title}".light_red
     else
-      next unless [true, false].sample
+      next unless ad_hoc.call
 
       puts "Creating reviews for #{movie.title} for #{user.name}".light_yellow
       create(:review, movie:, user_id: user.id)
-      next unless [true, false].sample
+      next unless ad_hoc.call
 
       puts "#{user.name} faves #{movie.title}".light_green
       Favourite.create(movie:, user:)
